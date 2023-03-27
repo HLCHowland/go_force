@@ -1,6 +1,7 @@
 module go_force
 
 require (
+	code.sajari.com/docconv v1.3.5 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	github.com/stretchr/testify v1.8.1 // indirect
